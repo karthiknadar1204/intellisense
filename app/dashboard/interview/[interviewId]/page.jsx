@@ -40,15 +40,15 @@ const Interview = ({ params }) => {
             <div className="p-5 rounded-lg border" >
           <h2 className="text-lg">
             <strong>Job Role/Job Position:</strong>
-            {interviewData[0].jobPosition}
+            {/* {interviewData[0].jobPosition} */}
           </h2>
           <h2 className="text-lg">
             <strong>Job Description/Tech Stack:</strong>
-            {interviewData[0].jobDesc}
+            {/* {interviewData[0].jobDesc} */}
           </h2>
           <h2 className="text-lg">
             <strong>Yoe:</strong>
-            {interviewData[0].jobExperience}
+            {/* {interviewData[0].jobExperience} */}
           </h2>
 
             </div>

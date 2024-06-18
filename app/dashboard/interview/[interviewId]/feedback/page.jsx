@@ -34,6 +34,10 @@ const Feedback = ({ params }) => {
     <div className="p-10">
       <h2 className="text-3xl font-bold text-green-500">Congragulations!!</h2>
       <h2 className="font-bold text-2xl">Here is your interview feedback</h2>
+      {/* {
+        feedbackList.length==0 ?
+        <h2 className="font-bold text-xl text-gray-500" >No interview record found</h2>
+      } */}
       <h2 className="text-primary text-lg my-3">
         Your overall interview Rating: <strong>7/10</strong>
       </h2>
@@ -60,7 +64,7 @@ const Feedback = ({ params }) => {
                 </h2>
                 <h2 className="bg-green-50 p-2 border rounded-lg text-sm text-green-900">
                   <strong>Correct Answer:</strong>
-                  {item.correctAns}
+                  {item?.correctAns}
                 </h2>
                 <h2 className="bg-blue-50 p-2 border rounded-lg text-sm text-blue-900">
                   <strong>Feedback:</strong>
