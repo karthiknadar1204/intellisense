@@ -55,13 +55,24 @@ const RecordAnswerSection = ({
 
   const UpdateUserAnswer = async () => {
     SetLoading(true);
+    const question = mockInterviewQuestion[activeQuestionIndex]?.question;
+
+    // Get correct answer from Gemini
+    const correctAnswerPrompt =
+      "Please provide a correct answer to the following interview question: " + question;
+
+    const correctAnswerResult = await chatSession.sendMessage(correctAnswerPrompt);
+    const correctAnswer = correctAnswerResult.response.text().trim();
+    console.log(correctAnswer);
+
     const feedbackPrompt =
       "Question:" +
-      mockInterviewQuestion[activeQuestionIndex]?.question +
-      ",User Answer:" +
+      question +
+      ", User Answer:" +
       userAnswer +
-      ",Depends on question and user answer for given interview question" +
-      "Please give us rating for answer and feedback for area of improvement if any." +
+      ", Correct Answer:" +
+      correctAnswer +
+      ". Please give us a rating for the answer and feedback for the area of improvement if any." +
       "In just 5-6 lines to improve it in JSON format with rating field and feedback field.";
 
     const result = await chatSession.sendMessage(feedbackPrompt);
@@ -75,17 +86,17 @@ const RecordAnswerSection = ({
 
     const resp = await db.insert(UserAnswer).values({
       mockIdRef: interviewData?.mockId,
-      question: mockInterviewQuestion[activeQuestionIndex]?.question,
-      correctAns: mockInterviewQuestion[activeQuestionIndex]?.answer,
+      question: question,
+      correctAns: correctAnswer,
       userAns: userAnswer,
       feedback: JsonFeedbackResp?.feedback,
       rating: JsonFeedbackResp?.rating,
       userEmail: user?.primaryEmailAddress?.emailAddress,
-      createdAt: moment().format("DD-MM=yyyy"),
+      createdAt: moment().format("DD-MM-yyyy"),
     });
 
     if (resp) {
-      toast("USer Answer recorded successfully!!");
+      toast("User Answer recorded successfully!!");
       setUserAnswer("");
       setResults([])
       }
@@ -103,7 +114,7 @@ const RecordAnswerSection = ({
             height: 300,
             width: "100%",
             zIndex: 10,
-          }}
+          }} 
         />
       </div>
       <Button
